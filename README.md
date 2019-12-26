@@ -25,16 +25,21 @@ In case the CMake-based build system is not chosen to be used, you can use your 
 
 The produced binary can be run by either passing the input text through a file:
 
+```
 ./WordCounter [INFILE]		for Unix
+```
+```
 WordCounter.exe [INFILE]	for Windows
-
+```
 Or in an interactive mode running the program and typing your input in the command line ending it with an 'EOF' character.
 
 The output is printed in the standard output and can be redirected into a file:
-
+```
 ./WordCounter [INFILE] > [OUTFILE]		for Unix
+```
+```
 WordCounter.exe [INFILE] > [OUTFILE]	for Windows
-
+```
 ## Tested on
 
 Ubuntu 18.04LTS with gcc 8.3
