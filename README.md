@@ -7,8 +7,9 @@ The base of this project was a simple [programming self-test](http://www.st.ewi.
 ## Getting Started
 
 As a first step you can get a copy of the code by either cloning the repository to an existing folder in a system featuring git using the following command:
+```
 git clone https://github.com/Conme/WordCounter
-
+```
 Or by using a git interface like [github](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository).
 
 ### Prerequisites
