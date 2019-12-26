@@ -1,6 +1,6 @@
 # WordCounter
 
-A straightforward C program counting the frequency each word appears in a piece of text. Initially the text, which was passed from a text file as a program argument or through the standard input, is partitioned into a vector of words. These words are subsequently counted and printed alphabetically along with their frequency on standard output.
+A straightforward C program counting the frequency each word appears in a piece of text. Initially the text, which is passed either from a text file as an argument or through the standard input, is partitioned into a vector of words. These words are subsequently counted and printed alphabetically along with their frequency on standard output.
 
 The base of this project was a simple [programming self-test](http://www.st.ewi.tudelft.nl/koen/cs4140/test.pdf) taken during my Masters, the output format, the supported word structures(special characters like '-', '.', '@' etc are allowed inside words) and the performance of which were upgraded to make it more user-friendly, useful and well-performing.
 
@@ -14,7 +14,7 @@ Or by using a git interface like [github](https://help.github.com/en/github/crea
 
 ### Prerequisites
 
-To use the build system included in the repository, [CMake](https://cmake.org) is essential for both Unix and Windows systems, while for Windows the MSBuild compiler included in all the recent versions of Visual Studio suites is needed. For Unix systems any CMake-supported and C11-compatible compiler is suitable. Make sure that both CMake and the compiler to be used will be in the system's PATH variable.
+To use the build system included in the repository, [CMake](https://cmake.org) is essential for both Unix and Windows systems, while for Windows the MSBuild compiler included in all the recent versions of Visual Studio suites is needed. For Unix systems any CMake-supported and C11-compatible compiler is suitable. Make sure that both the location of CMake and the location of the compiler to be used are in the system's PATH variable.
 
 ### Compiling
 
