@@ -142,7 +142,7 @@ RetStatus WordBufferVector_push(WordBufferVector *vec, const WordBuffer *wbuf);
 /**
  * @brief Returns the Word Buffer at the specified position.
  *
- * @param[in]	vec		Pointer to the vector.
+ * @param[in]	vec	Pointer to the vector.
  * @param[in]	index	Index of the element.
  * @return	Returns a pointer to the indexed element.
  */
@@ -151,7 +151,7 @@ WordBuffer* WordBufferVector_at(const WordBufferVector *vec, const size_t index)
 /**
  * @brief Returns the string of the Word Buffer at the specified position.
  *
- * @param[in]	vec		Pointer to the vector.
+ * @param[in]	vec	Pointer to the vector.
  * @param[in]	index	Index of the element.
  * @return	Returns a pointer to the indexed element.
  */
@@ -168,7 +168,7 @@ size_t WordBufferVector_get_size(const WordBufferVector *vec);
 /**
  * @brief Prints in a user-readable way the elements of the Word Buffer Vector.
  *
- * @param[in]	wbuf	Pointer to the vector.
+ * @param[in]	vec	Pointer to the vector.
  * @return	Void
  */
 void WordBufferVector_print(const WordBufferVector *vec);
@@ -176,7 +176,7 @@ void WordBufferVector_print(const WordBufferVector *vec);
 /**
  * @brief Frees the memory allocated for the structs of the Word Buffer Vector.
  *
- * @param[in, out]	wbuf	Pointer to the vector.
+ * @param[in, out]	vec	Pointer to the vector.
  * @return	Void
  */
 void WordBufferVector_free(WordBufferVector *vec);
@@ -185,7 +185,7 @@ void WordBufferVector_free(WordBufferVector *vec);
  * @brief Frees the memory allocated for the structs of the Word Buffer Vector
  * and the memory allocated for the vector itself.
  *
- * @param[in, out]	wbuf	Pointer to the pointer of the buffer.
+ * @param[in, out]	vec	Pointer to the pointer of the vector.
  * @return	Void
  */
 void WordBufferVector_destroy(WordBufferVector **vec);
@@ -205,6 +205,7 @@ MemoryPool* MemoryPool_create(const size_t initCapacity);
 /**
  * @brief Initializes a Memory Pool to the specified capacity.
  *
+ * @param[in, out]	memp		Pointer to the pool.
  * @param[in]	initLen	The value of the initial capacity of the pool.
  * @return	Returns the status of the routine.
  */
@@ -240,7 +241,7 @@ RetStatus MemoryPool_expand(MemoryPool *memp);
 /**
  * @brief Frees the memory allocated for the structs of the Memory Pool.
  *
- * @param[in, out]	wbuf	Pointer to the pool.
+ * @param[in, out]	memp	Pointer to the pool.
  * @return	Void
  */
 void MemoryPool_free(MemoryPool *memp);
