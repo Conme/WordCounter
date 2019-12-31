@@ -1,0 +1,2 @@
+#Always ignore build directory containing files from a past build
+build/

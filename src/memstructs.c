@@ -753,13 +753,16 @@ bool WordHashTable_size_below(const WordHashTable* whtab, const uint32_t limitPr
  */
 static void stringPointers_update(WordHashTable* whtab, const char* prevPoolBasePtr)
 {
-	for(size_t i = 0; i < whtab->size; i++)
+	if(whtab->stringsPool.memSpace != prevPoolBasePtr)
 	{
-		/// Only the indices stored in the Order Array are valid.
-		size_t validIndex = whtab->alphOrderArray[i];
-		WordHashTabEntry* oldEntry = &(whtab->entries[validIndex]);
-		oldEntry->letters =(oldEntry->letters - prevPoolBasePtr) +
-				whtab->stringsPool.memSpace;
+		for(size_t i = 0; i < whtab->size; i++)
+		{
+			/// Only the indices stored in the Order Array are valid.
+			size_t validIndex = whtab->alphOrderArray[i];
+			WordHashTabEntry* oldEntry = &(whtab->entries[validIndex]);
+			oldEntry->letters =(oldEntry->letters - prevPoolBasePtr) +
+					whtab->stringsPool.memSpace;
+		}
 	}
 }
 
