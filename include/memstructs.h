@@ -197,7 +197,7 @@ typedef struct MemoryPool MemoryPool;
 /**
  * @brief Allocates a new Memory Pool with the specified capacity.
  *
- * @param[in]	initLen	The value of the initial capacity of the pool.
+ * @param[in]	initCapacity	The value of the initial capacity of the pool.
  * @return	Return a pointer to the allocated pool.
  */
 MemoryPool* MemoryPool_create(const size_t initCapacity);
@@ -206,7 +206,7 @@ MemoryPool* MemoryPool_create(const size_t initCapacity);
  * @brief Initializes a Memory Pool to the specified capacity.
  *
  * @param[in, out]	memp		Pointer to the pool.
- * @param[in]	initLen	The value of the initial capacity of the pool.
+ * @param[in]		initCapacity	The value of the initial capacity of the pool.
  * @return	Returns the status of the routine.
  */
 RetStatus MemoryPool_init(MemoryPool *memp, const size_t initCapacity);
@@ -254,7 +254,7 @@ typedef struct WordHashTable WordHashTable;
 /**
  * @brief Allocates a new Word Hash Table with the specified capacity.
  *
- * @param[in]	initLen	The value of the initial capacity of the table.
+ * @param[in]	initCapacity	The value of the initial capacity of the table.
  * @return	Return a pointer to the allocated table.
  */
 WordHashTable* WordHashTable_create(const size_t initCapacity);
@@ -263,7 +263,7 @@ WordHashTable* WordHashTable_create(const size_t initCapacity);
  * @brief Initializes a Word Hash Table to the specified capacity.
  *
  * @param[in, out] 	whtab		Pointer to the Hash table.
- * @param[in]		initLen		The value of the initial capacity of the table.
+ * @param[in]		initCapacity	The value of the initial capacity of the table.
  * @return	Returns the status of the routine.
  */
 RetStatus WordHashTable_init(WordHashTable *whtab, const size_t initCapacity);
