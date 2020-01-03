@@ -323,7 +323,8 @@ MemoryPool* MemoryPool_create(const size_t initCapacity)
 	memp->memSpace = (char*) calloc(memp->capacity, sizeof(char));
 	if(memp->memSpace == NULL)
 	{
-		fprintf(stderr,"Memory region allocation of %ld bytes for the Memory Pool.\n", memp->capacity);
+		fprintf(stderr,"Memory region allocation of %ld bytes for the Memory Pool.\n",
+			memp->capacity);
 		free(memp);
 		return NULL;
 	}
@@ -340,7 +341,8 @@ RetStatus MemoryPool_init(MemoryPool *memp ,const size_t initCapacity)
 	m.memSpace = (char*) calloc(m.capacity, sizeof(char));
 	if(m.memSpace == NULL)
 	{
-		fprintf(stderr,"Memory region allocation of %ld bytes for the Memory Pool.\n", m.capacity);
+		fprintf(stderr,"Memory region allocation of %ld bytes for the Memory Pool.\n",
+			m.capacity);
 		return GEN_FAIL;
 	}
 
@@ -373,7 +375,8 @@ RetStatus MemoryPool_expand(MemoryPool *memp)
 	char* extPtr = (char*) realloc(memp->memSpace, newCapacity);
 	if(extPtr == NULL)
 	{
-		fprintf(stderr,"Expansion of Memory Pool to %ld bytes failed.\n", newCapacity);
+		fprintf(stderr,"Expansion of Memory Pool to %ld bytes failed.\n",
+			newCapacity);
 		return GEN_FAIL;
 	}
 
@@ -495,14 +498,16 @@ RetStatus WordHashTable_init(WordHashTable* whtab, const size_t initCapacity)
 	newTable.entries = (WordHashTabEntry*) calloc(newTable.capacity, sizeof(WordHashTabEntry));
 	if(newTable.entries == NULL)
 	{
-		fprintf(stderr, "Failed to initialize Word Hash Table for a capacity of %ld words\n", newTable.capacity);
+		fprintf(stderr, "Failed to initialize Word Hash Table for a capacity of %ld words\n",
+			newTable.capacity);
 		return GEN_FAIL;
 	}
 
 	newTable.alphOrderArray = (size_t*) calloc(newTable.capacity, sizeof(size_t));
 	if(newTable.alphOrderArray == NULL)
 	{
-		fprintf(stderr, "Failed to initialize Order Table for a capacity of %ld words\n", newTable.capacity);
+		fprintf(stderr, "Failed to initialize Order Table for a capacity of %ld words\n",
+			newTable.capacity);
 		free(newTable.entries);
 		return GEN_FAIL;
 	}
@@ -543,7 +548,8 @@ static void orderArray_insert(WordHashTable *whtab, const char *newWord, const s
 		/// to the next position until an index corresponding to a word,
 		/// the string of each is alphabetical precedent of the new word
 		/// is found.
-		for(i =(int64_t)whtab->size - 1; i >= 0 &&(strcmp(newWord, whtab->entries[whtab->alphOrderArray[i]].letters) <= 0); i--)
+		for(i =(int64_t)whtab->size - 1; i >= 0 
+			&& (strcmp(newWord, whtab->entries[whtab->alphOrderArray[i]].letters) <= 0); i--)
 		{
 			whtab->alphOrderArray[i + 1] = whtab->alphOrderArray[i];
 		}
@@ -654,7 +660,8 @@ RetStatus WordHashTable_add_word(WordHashTable* whtab, const WordBuffer* buf)
 			if(curEntry->count == 0)
 			{
 				curEntry->letters =
-					MemoryPool_alloc_block(&(whtab->stringsPool),(buf->curPosition + 1) * sizeof(char));
+					MemoryPool_alloc_block(&(whtab->stringsPool),
+							(buf->curPosition + 1) * sizeof(char));
 				if(curEntry->letters == NULL)
 				{
 #ifdef _DEBUG
@@ -665,7 +672,8 @@ RetStatus WordHashTable_add_word(WordHashTable* whtab, const WordBuffer* buf)
 				curEntry->length = buf->curPosition + 1;
 				if(!string_copy(curEntry->letters, buf->letters, curEntry->length))
 				{
-					fprintf(stderr, "Failed to copy word \"%s\" to a new entry", buf->letters);
+					fprintf(stderr, "Failed to copy word \"%s\" to a new entry",
+						buf->letters);
 					return GEN_FAIL;
 				}
 				curEntry->count++;
@@ -691,7 +699,8 @@ RetStatus WordHashTable_add_word(WordHashTable* whtab, const WordBuffer* buf)
 				{
 					/// if the table is not empty, it is not possible
 					/// for the word to be the most frequently occurring.
-					WordHashTabEntry* maxLengthWord = &(whtab->entries[whtab->pfstats.maxLengthWordIndex]);
+					WordHashTabEntry* maxLengthWord =
+							&(whtab->entries[whtab->pfstats.maxLengthWordIndex]);
 					if(curEntry->length > maxLengthWord->length)
 					{
 						whtab->pfstats.maxLengthWordIndex = curIndex;
@@ -711,7 +720,8 @@ RetStatus WordHashTable_add_word(WordHashTable* whtab, const WordBuffer* buf)
 				{
 					curEntry->count++;
 
-					WordHashTabEntry* maxCountWord = &(whtab->entries[whtab->pfstats.maxCountWordIndex]);
+					WordHashTabEntry* maxCountWord =
+						&(whtab->entries[whtab->pfstats.maxCountWordIndex]);
 					/// If the word is already on the table, its length
 					/// was already evaluated and thus only its count is
 					/// compared to the max.
@@ -732,7 +742,8 @@ RetStatus WordHashTable_add_word(WordHashTable* whtab, const WordBuffer* buf)
 	/// or an empty slot to insert it, the process fails.
 	/// This should not be possible under normal execution.
 
-	fprintf(stderr, "Entry %s is not on the table and there is no slot to add it\n", buf->letters);
+	fprintf(stderr, "Entry %s is not on the table and there is no slot to add it\n",
+		buf->letters);
 
 	return GEN_FAIL;
 }
@@ -753,16 +764,13 @@ bool WordHashTable_size_below(const WordHashTable* whtab, const uint32_t limitPr
  */
 static void stringPointers_update(WordHashTable* whtab, const char* prevPoolBasePtr)
 {
-	if(whtab->stringsPool.memSpace != prevPoolBasePtr)
+	for(size_t i = 0; i < whtab->size; i++)
 	{
-		for(size_t i = 0; i < whtab->size; i++)
-		{
-			/// Only the indices stored in the Order Array are valid.
-			size_t validIndex = whtab->alphOrderArray[i];
-			WordHashTabEntry* oldEntry = &(whtab->entries[validIndex]);
-			oldEntry->letters =(oldEntry->letters - prevPoolBasePtr) +
-					whtab->stringsPool.memSpace;
-		}
+		/// Only the indices stored in the Order Array are valid.
+		size_t validIndex = whtab->alphOrderArray[i];
+		WordHashTabEntry* oldEntry = &(whtab->entries[validIndex]);
+		oldEntry->letters =(oldEntry->letters - prevPoolBasePtr) +
+				whtab->stringsPool.memSpace;
 	}
 }
 
@@ -774,7 +782,10 @@ RetStatus WordHashTable_MemoryPool_expand(WordHashTable* whtab)
 		fprintf(stderr, "Failed to expand Hash Table memory pool\n");
 		return GEN_FAIL;
 	}
-	stringPointers_update(whtab, prevPoolPtr);
+	if(prevPoolPtr != whtab->stringsPool.memSpace)
+	{
+		stringPointers_update(whtab, prevPoolPtr);
+	}
 
 	return SUCCESS;
 }
@@ -795,7 +806,8 @@ static void WordHashTable_migrate(WordHashTable* whtab, WordHashTabEntry* extEnt
 		size_t oldIndex = whtab->alphOrderArray[i];
 		WordHashTabEntry* oldEntry = &(whtab->entries[whtab->alphOrderArray[i]]);
 
-		const int64_t hashIndex = (int64_t) (fnvhash((uint8_t*) oldEntry->letters, oldEntry->length) % whtab->capacity);
+		const int64_t hashIndex =
+			(int64_t) (fnvhash((uint8_t*) oldEntry->letters, oldEntry->length) % whtab->capacity);
 		int newDispl = 0;
 #ifdef _DEBUG
 		RetStatus st = GEN_FAIL;
@@ -889,13 +901,14 @@ static void WordHashTable_migrate(WordHashTable* whtab, WordHashTabEntry* extEnt
 			}
 			newDispl++;
 
-		} while(((size_t)(hashIndex + newDispl) < whtab->capacity) ||(hashIndex >= newDispl));
+		} while(((size_t)(hashIndex + newDispl) < whtab->capacity) || (hashIndex >= newDispl));
 
 #ifdef _DEBUG
 		if(st != SUCCESS)
 		{
 			assert(false);
-			fprintf(stderr, "Failed to migrate the word '%s' to a table containing %ld words\n", oldEntry->letters, whtab->capacity);
+			fprintf(stderr, "Failed to migrate the word '%s' to a table containing %ld words\n",
+					oldEntry->letters, whtab->capacity);
 			break;
 		}
 #endif //_DEBUG
