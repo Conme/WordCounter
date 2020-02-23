@@ -63,4 +63,4 @@ This project is licensed under the version 3 of the GNU General Public License (
 
 ## Acknowledgments
 
-Special thanks to Sean Eron Anderson for his [Bit Twiddling Hacks code](https://graphics.stanford.edu/~seander/bithacks.html) and to Professor Koen Langendoen for the assignment which inspired me.
+Special thanks to Sean Eron Anderson for his [Bit Twiddling Hacks code](https://graphics.stanford.edu/~seander/bithacks.html), to Konstantin Selyunin for the googletest submodule integration to CMake build system(https://github.com/selyunin/gtest_submodule) and to Professor Koen Langendoen for the assignment which inspired me.
