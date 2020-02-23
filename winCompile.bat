@@ -6,7 +6,7 @@ if "%conf%"=="Release" set Valid=1
 if defined Valid (
     mkdir build
 	cd build
-	cmake -DCMAKE_TOOLCHAIN_FILE=..\CMake\%conf%.cmake ..
+	cmake -DCMAKE_BUILD_TYPE=%conf% ..
 	MSBuild WordCounter.sln /property:Configuration=%conf%
 	cd %conf%
 ) else (

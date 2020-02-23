@@ -982,7 +982,7 @@ RetStatus WordHashTable_expand(WordHashTable* whtab)
  */
 static inline uint32_t num_of_digits(const size_t num)
 {
-	return(uint32_t)snprintf(NULL, 0, "%ld", num);
+	return (uint32_t)snprintf(NULL, 0, "%ld", num);
 }
 
 /**
